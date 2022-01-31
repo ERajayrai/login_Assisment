@@ -19,6 +19,8 @@ const UserProfile = () => {
     const [phone, setPhone] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [password, setPassword] = useState('');
+    const [NewpasswordError, setNewPasswordError] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const formHandler = (e) => {
         e.preventDefault();
         const file = e.target[0].files[0];
@@ -103,16 +105,12 @@ const UserProfile = () => {
     }
     const validateNewPassword = (value) => {
 
-        setCpassword(value)
-        console.log(Cpassword)
-        console.log(Cpassword.length)
-
-        if (password === value) {
-            setCpasswordError('')
-            setPassword(value)
+        if (value.length != null && value.length >= 8) {
+            setNewPassword(value)
+            setNewPasswordError('')
         }
         else {
-            setCpasswordError('passWord is Mitchmatch ')
+            setNewPasswordError('name should be minimum 8 chars')
         }
     }
 
