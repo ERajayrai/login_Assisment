@@ -13,8 +13,6 @@ const UserProfile = () => {
     const [name, setName] = useState('');
     const [lastError, setLastError] = useState('');
     const [last, setLast] = useState('');
-    const [addressError, setAddressError] = useState('');
-    const [address, setAddress] = useState('');
     const [phoneError, setPhoneError] = useState('');
     const [phone, setPhone] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -61,9 +59,6 @@ const UserProfile = () => {
         }
     }
     const validateName = (value) => {
-
-        setName(value)
-
         if (value.length != null && value.length >= 3 && value.length <= 8) {
             setName(value)
             setNameError('')
@@ -126,13 +121,38 @@ const UserProfile = () => {
                             <h4 class="text-right">Profile Settings</h4>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-md-6"><label class="labels">FirstName</label><input type="text" id="form3Example1m" className="form-control " onChange={e => validateName(e.target.value)} autoComplete='on' required /></div>
-                            <div class="col-md-6"><label class="labels">LastName</label><input type="text" id="form3Example1n" className="form-control " onChange={e => validateLastName(e.target.value)} autoComplete='on' required /></div>
+                            <div class="col-md-6"><label class="labels">FirstName</label><input type="text" id="form3Example1m" className="form-control " onChange={e => validateName(e.target.value)} autoComplete='on' required />
+                                <div><span style={{
+                                            fontWeight: 'bold',
+                                            color: 'red',
+                                        }}>{nameError}</span></div>
+                            </div>
+                            <div class="col-md-6"><label class="labels">LastName</label><input type="text" id="form3Example1n" className="form-control " onChange={e => validateLastName(e.target.value)} autoComplete='on' required />
+                                <div><span style={{
+                                        fontWeight: 'bold',
+                                        color: 'red',
+                                    }}>{lastError}</span></div>
+                            </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="number" id="form3Example9" className="form-control " autoComplete='on' required onChange={e => validatePhone(e.target.value)} /></div>
-                            <div class="col-md-12"><label class="labels">OldPassword</label><input type="password" className="form-control " onChange={e => validateOldPassword(e.target.value)} autoComplete='on' required /></div>
-                            <div class="col-md-12"><label class="labels">NewPassword</label><input type="password" id="form3Example99" className="form-control " autoComplete='on' required onChange={e => validateNewPassword(e.target.value)} /></div>
+                            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="number" id="form3Example9" className="form-control " autoComplete='on' required onChange={e => validatePhone(e.target.value)} />
+                            <div><span style={{
+                                    fontWeight: 'bold',
+                                    color: 'red',
+                                }}>{phoneError}</span></div>
+                            </div>
+                            <div class="col-md-12"><label class="labels">OldPassword</label><input type="password" className="form-control " onChange={e => validateOldPassword(e.target.value)} autoComplete='on' required />
+                                            <div><span style={{
+                                    fontWeight: 'bold',
+                                    color: 'red',
+                                }}>{passwordError}</span></div>
+                            </div>
+                            <div class="col-md-12"><label class="labels">NewPassword</label><input type="password" id="form3Example99" className="form-control " autoComplete='on' required onChange={e => validateNewPassword(e.target.value)} />
+                                <div><span style={{
+                                        fontWeight: 'bold',
+                                        color: 'red',
+                                    }}>{NewpasswordError}</span></div>
+                            </div>
                             <div class="col-md-12"><label class="labels">UpdateProfilePhoto</label><form onSubmit={formHandler}>
                                 <input type="file" className="input" />
                                 <button type="submit">Upload</button>
