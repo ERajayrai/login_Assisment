@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Login from './Pagess/Login';
+import {Switch,Route} from 'react-router-dom'
+import Registration from './Pagess/Registration';
+import Homepage from './Pagess/homepage/Homepage';
+import { useState } from 'react';
+import ProtectedRoute from './ProtectedRoute';
+
 
 function App() {
+  const [login,setLogin]=useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <> 
+        <Switch>
+          <Route exact path="/" >
+            <Login setLogin={setLogin} login={login}/>
+          </Route>
+          <Route exact path="/registration" >
+            <Registration setLogin={setLogin} login={login}/>
+          </Route>
+          <ProtectedRoute exact path="/homepage" login={login}>
+            < Homepage login={login} setLogin={setLogin}/>
+          </ProtectedRoute>  
+        </Switch>
+    </>
   );
 }
 
