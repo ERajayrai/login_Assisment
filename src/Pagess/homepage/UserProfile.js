@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { storage } from '../../firebaseConfigaration';
+import { storage,db } from '../../firebaseConfigaration';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import validator from 'validator'
+import { doc ,updateDoc } from "firebase/firestore";
+import validator from 'validator';
 
 const UserProfile = () => {
     const [image, setImage] = useState(null);
@@ -43,6 +44,7 @@ const UserProfile = () => {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     setUrl(downloadURL);
+                    setImage(downloadURL)
                     console.log("File available at", downloadURL);
                 });
             }
@@ -108,6 +110,22 @@ const UserProfile = () => {
             setNewPasswordError('name should be minimum 8 chars')
         }
     }
+    const upadteProfile=async()=>{
+       let id= localStorage.getItem(id);
+
+        
+        if (name.length === 0 || last.length === 0 || phone.length === 0 || email.length === 0 || password.length === 0||newPassword.length===0||image.length===0) {
+            alert("all field is requer");
+        } else {
+            const intialValues = { firstName: name, lastName: last, email: email, Oldpassword: password,phone: phone,password:newPassword,profileImg:image }
+            const userDoc=doc(db,"users",id);
+            await updateDoc(userDoc,intialValues).then((res) => {
+              alert("Sucessfully", res);
+            }).catch((err) => {
+              alert("uncessfully", err);
+            })
+        } 
+    }
 
     return <>
         <div class="container rounded bg-white mt-5 mb-5">
@@ -165,7 +183,7 @@ const UserProfile = () => {
                                     color: 'red',
                                 }}>{emailError}</span>
                         </div>
-                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" onClick={()=>upadteProfile}>Save Profile</button></div>
                     </div>
                 </div>
             </div>
